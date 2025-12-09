@@ -187,7 +187,7 @@ const showAIWelcomeMessage = () => {
 
 const fetchChatHistory = async () => {
     try {
-        const response = await fetch(`http://127.0.0.1:8000/chats/${userId}`);
+        const response = await fetch(`https://test-7-xytl.onrender.com/chats/${userId}`);
         const data = await response.json();
 
         // Clear existing messages
@@ -278,7 +278,7 @@ const sendChat = async () => {
     // 3️⃣ Call API
     let aiResponse = "";
     try {
-        const res = await fetch("http://127.0.0.1:8000/chat/send", {
+        const res = await fetch("https://test-7-xytl.onrender.com/chat/send", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
@@ -409,7 +409,7 @@ analyzeReportButton.addEventListener("click", async () => {
         }
         
 
-        const response = await fetch("http://127.0.0.1:8000/analyze-report", {
+        const response = await fetch("https://test-7-xytl.onrender.com/analyze-report", {
             method: "POST",
             body: formData
         });
@@ -460,7 +460,7 @@ analyzeButton.addEventListener("click", async () => {
             formData.append("custom_analysis_focus", systemInstructionInput.value.trim());
         }
 
-        const response = await fetch("http://127.0.0.1:8000/analyze-drug", {
+        const response = await fetch("https://test-7-xytl.onrender.com/analyze-drug", {
             method: "POST",
             body: formData
         });
@@ -513,3 +513,4 @@ window.onload = () => {
     fetchChatHistory(); // Load chat history when page loads
     showAIWelcomeMessage();  // Add welcome message at the top
 };
+
