@@ -6,3 +6,5 @@ pymongo==4.6.3
 dnspython==2.4.3
 google-genai==0.2.1
 chromadb==0.5.4
+dnspython==2.6.1
+
