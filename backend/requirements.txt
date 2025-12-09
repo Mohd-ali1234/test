@@ -1,0 +1,8 @@
+fastapi==0.111.1
+uvicorn==0.23.2
+pydantic==1.10.12
+bcrypt==4.1.0
+pymongo==4.5.1
+dnspython==2.4.3
+google-genai==0.1.6
+chromadb==0.3.38

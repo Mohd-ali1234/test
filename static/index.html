@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Next-Level AI Medical Assistant</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/style.css"> 
+</head>
+
+<body class="min-h-screen">
+    <div class="flex">
+        <!-- Sidebar (Responsive & Collapsible) -->
+        <aside id="sidebar"
+            class="sidebar fixed z-40 h-full w-64 bg-white shadow-xl md:shadow-lg md:block sidebar-hidden md:translate-x-0">
+            <div class="p-6 h-full flex flex-col">
+                <!-- Logo -->
+                <div class="flex items-center space-x-3 mb-8">
+                    <!-- <img src="https://placehold.co/40x40/2E7DDC/ffffff?text=AI" alt="Logo" class="rounded-lg">
+                    <h2 class="text-xl font-bold text-gray-800">Medi<span class="text-blue-600">Assist</span></h2> -->
+                    <img class="img1" src="static/image.png" alt="">
+
+                </div>
+
+                <!-- Navigation Menu -->
+                <nav class="flex-grow space-y-2">
+                    <a id="nav-home" onclick="showView('dashboard', this)"
+                        class="menu-link active flex items-center p-3 rounded-xl text-gray-600 hover:bg-gray-100 transition duration-150 cursor-pointer text-sm">
+                        <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6">
+                            </path>
+                        </svg>
+                        Dashboard
+                    </a>
+                    <a id="nav-chat" onclick="showView('chat', this)"
+                        class="menu-link flex items-center p-3 rounded-xl text-gray-600 hover:bg-gray-100 transition duration-150 cursor-pointer text-sm">
+                        <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.805A12.022 12.022 0 0112 4c4.97 0 9 3.582 9 8z">
+                            </path>
+                        </svg>
+                        AI Consult (Chat)
+                    </a>
+                    <a id="nav-report-info" onclick="showView('report',this)"
+                        class="menu-link flex items-center p-3 rounded-xl text-gray-600 hover:bg-gray-100 transition duration-150 cursor-pointer text-sm">
+                        <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0h10a2 2 0 002-2v-6a2 2 0 00-2-2H9m10 10V4a2 2 0 00-2-2H7a2 2 0 00-2 2v16m4 0h6">
+                            </path>
+                        </svg>
+                        Report Analyze
+                    </a>
+                    <a id="nav-pill-info" onclick="showView('pill', this)"
+                        class="menu-link flex items-center p-3 rounded-xl text-gray-600 hover:bg-gray-100 transition duration-150 cursor-pointer text-sm">
+                        <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V5m0 2v10m0 0l.965.965m-.965-.965l-.965.965M18.831 7.171c1.55 1.55 2.457 3.65 2.457 5.829s-.907 4.279-2.457 5.829M5.169 7.171C3.619 8.721 2.712 10.82 2.712 13s.907 4.279 2.457 5.829M12 4h.01M12 20h.01">
+                            </path>
+                        </svg>
+                        Pill & Drug Info
+                    </a>
+                </nav>
+
+                <!-- Footer/Settings -->
+                <div class="mt-8 pt-4 border-t border-gray-100">
+                    <a
+                        class="menu-link flex items-center p-3 rounded-xl text-gray-600 hover:bg-gray-100 transition duration-150 cursor-pointer text-sm">
+                        <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.941 3.31.82 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.941 1.543-.82 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.941-3.31-.82-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.941-1.543.82-3.31 2.37-2.37a1.724 1.724 0 002.572-1.065z">
+                            </path>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                        </svg>
+                        Settings
+                    </a>
+                    <a
+                        class="menu-link flex items-center p-3 rounded-xl text-gray-600 hover:bg-gray-100 transition duration-150 cursor-pointer text-sm">
+                        <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1">
+                            </path>
+                        </svg>
+                        Logout
+                    </a>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Mobile Menu Toggle Button -->
+        <button id="menu-toggle"
+            class="md:hidden fixed top-4 left-4 z-50 p-2 bg-blue-600 text-white rounded-lg shadow-lg"
+            onclick="toggleSidebar()">
+            <!-- Hamburger Icon -->
+            <svg id="menu-icon" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16">
+                </path>
+            </svg>
+        </button>
+
+        <!-- Main Content Area -->
+        <main id="main-content" class="flex-grow md:ml-64 p-4 md:p-8 min-h-screen transition-all duration-300">
+
+            <!-- Top Header (Topbar) -->
+            <header class="topbar flex justify-between items-center py-2 mb-6">
+                <!-- Search Bar (Enhanced) -->
+                <div class="relative w-full max-w-xl">
+                    <input type="text" placeholder="Search symptoms, medicines, or ask a question..."
+                        class="w-full py-3 pl-12 pr-4 text-gray-700 bg-white border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-200 shadow-sm" />
+                    <svg class="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" fill="none"
+                        stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                    </svg>
+                    <!-- Auto-suggestion example - hidden by default -->
+                    <!-- <div class="absolute w-full mt-1 bg-white border border-gray-200 rounded-xl shadow-lg z-10 hidden">...</div> -->
+                </div>
+
+                <!-- Profile and Notifications -->
+                <div class="flex items-center space-x-4">
+                    <!-- Notification Bell with Badge -->
+                    <div
+                        class="relative group p-2 rounded-full hover:bg-gray-100 cursor-pointer transition duration-150">
+                        <svg class="w-6 h-6 text-gray-500 hover:text-blue-600" fill="none" stroke="currentColor"
+                            viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9">
+                            </path>
+                        </svg>
+                        <span
+                            class="absolute top-1 right-1 h-3 w-3 bg-red-500 rounded-full border-2 border-white"></span>
+                    </div>
+
+                    <!-- Profile Avatar (Clickable for Dropdown) -->
+                    <div id="profile-area" class="relative">
+                        <div class="avatar w-10 h-10 bg-blue-600 text-white font-semibold rounded-full flex items-center justify-center cursor-pointer shadow-lg"
+                            onclick="toggleDropdown()">
+                            U
+                        </div>
+                        <!-- Profile Dropdown (Hidden by default) -->
+                        <div id="profile-dropdown"
+                            class="absolute right-0 mt-3 w-48 bg-white border border-gray-100 rounded-xl shadow-2xl py-2 z-30 hidden transition duration-200 origin-top-right">
+                            <a href="#"
+                                class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition duration-150">My
+                                Profile</a>
+                            <a href="#"
+                                class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition duration-150">Health
+                                Records</a>
+                            <div class="border-t border-gray-100 my-1"></div>
+                            <a href="#"
+                                class="block px-4 py-2 text-sm text-red-600 hover:bg-red-50 transition duration-150">Sign
+                                Out</a>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- ======================= DASHBOARD VIEW ======================= -->
+            <div id="dashboard-view" class="space-y-8">
+
+                <!-- Welcome Section (Hero) -->
+                <section
+                    class="bg-gradient-to-r from-white to-blue-50 p-6 sm:p-8 rounded-2xl shadow-lg border border-blue-100">
+                    <h1 class="text-3xl font-extrabold text-blue-800 mb-1">Hello User 👋</h1>
+                    <p class="text-gray-600 mb-6">Your dedicated, trustworthy AI healthcare companion.</p>
+
+                    <div class="flex flex-col sm:flex-row gap-4">
+                        <input type="text"
+                            placeholder="Describe your symptoms (e.g., 'Sharp pain in my chest, fever for 2 days')..."
+                            class="flex-grow py-4 px-5 text-gray-800 border border-blue-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-400 transition duration-200" />
+                        <button onclick="showView('chat', document.getElementById('nav-chat'))"
+                            class="w-full sm:w-auto px-8 py-4 bg-blue-600 text-white font-semibold rounded-xl hover:bg-blue-700 transition duration-300 shadow-md hover:shadow-lg">
+                            Analyze Symptoms
+                        </button>
+                    </div>
+                </section>
+
+                <!-- Quick Action Cards -->
+                <h2 class="text-xl font-bold text-gray-700 pt-4 mb-2">Quick Actions</h2>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- Card 1: Symptom Checker -->
+                    <div class="action-card p-6 rounded-2xl border border-gray-100 shadow-md hover:border-blue-300">
+                        <div
+                            class="icon bg-icon-blue w-12 h-12 rounded-xl flex items-center justify-center text-2xl mb-3 shadow-inner">
+                            🩺</div>
+                        <h4 class="text-lg font-semibold text-gray-800">Symptom Checker</h4>
+                        <p class="text-sm text-gray-500 mb-4">AI analysis of current health concerns.</p>
+                        <button class="text-blue-600 font-medium text-sm flex items-center hover:underline"
+                        onclick="showView('chat', this)">
+                            Check Symptoms
+                            <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+                            </svg>
+                        </button>
+                    </div>
+
+                    <!-- Card 2: Medicine Checker -->
+                    <div class="action-card p-6 rounded-2xl border border-gray-100 shadow-md hover:border-blue-300">
+                        <div
+                            class="icon bg-icon-orange w-12 h-12 rounded-xl flex items-center justify-center text-2xl mb-3 shadow-inner">
+                            💊</div>
+                        <h4 class="text-lg font-semibold text-gray-800">Drug Interaction</h4>
+                        <p class="text-sm text-gray-500 mb-4">Verify safety of combined medications.</p>
+                        <button class="text-blue-600 font-medium text-sm flex items-center hover:underline" 
+                        onclick="showView('pill', this)">
+                            Check Drugs 
+                            <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+                            </svg>
+                        </button>
+                    </div>
+
+                    <!-- Card 3: Lab Reports -->
+                    <div class="action-card p-6 rounded-2xl border border-gray-100 shadow-md hover:border-blue-300 flex flex-col justify-between h-56">
+                        <div>
+                            <div class="icon bg-icon-green w-12 h-12 rounded-xl flex items-center justify-center text-2xl mb-3 shadow-inner">
+                                📄
+                            </div>
+                            <h4 class="text-lg font-semibold text-gray-800">Analyze Reports</h4>
+                            <p class="text-sm text-gray-500 mb-4">Upload and get clear summaries.</p>
+                        </div>
+                        <button class="text-blue-600 font-medium text-sm flex items-center hover:underline mt-4"
+                            onclick="showView('report', this)">
+                            Upload Now
+                            <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+                            </svg>
+                        </button>
+                    </div>
+                    
+
+                </div>
+
+                <!-- Recent Activity & Records -->
+                <section class="grid grid-cols-1 lg:grid-cols-3 gap-6 pt-4">
+                    <div class="lg:col-span-2 bg-white p-6 rounded-2xl shadow-lg border border-gray-100">
+                        <div class="flex justify-between items-center mb-6">
+                            <h3 class="text-xl font-bold text-gray-700">Recent Activity</h3>
+                            <a href="#"
+                                class="text-blue-600 text-sm font-medium hover:underline transition duration-150">View
+                                All</a>
+                        </div>
+
+                        <div class="space-y-4">
+                            <!-- Activity Item 1 -->
+                            <div
+                                class="flex items-center justify-between p-3 rounded-xl hover:bg-gray-50 transition duration-150 cursor-pointer border-b border-gray-50 last:border-b-0">
+                                <div class="flex items-center space-x-4">
+                                    <div
+                                        class="w-10 h-10 bg-icon-blue rounded-lg flex items-center justify-center text-xl">
+                                        💬</div>
+                                    <div>
+                                        <h4 class="font-semibold text-gray-800">AI Consultation: Fever & Chills</h4>
+                                        <p class="text-xs text-gray-500">2 hours ago</p>
+                                    </div>
+                                </div>
+                                <span
+                                    class="bg-blue-100 text-blue-700 text-xs font-semibold px-2 py-0.5 rounded-full">New</span>
+                            </div>
+
+                            <!-- Activity Item 2 -->
+                            <div
+                                class="flex items-center justify-between p-3 rounded-xl hover:bg-gray-50 transition duration-150 cursor-pointer border-b border-gray-50 last:border-b-0">
+                                <div class="flex items-center space-x-4">
+                                    <div
+                                        class="w-10 h-10 bg-icon-green rounded-lg flex items-center justify-center text-xl">
+                                        📄</div>
+                                    <div>
+                                        <h4 class="font-semibold text-gray-800">Blood Test Report Analysis</h4>
+                                        <p class="text-xs text-gray-500">Yesterday at 3:15 PM</p>
+                                    </div>
+                                </div>
+                                <span class="text-gray-400 text-xs">View</span>
+                            </div>
+
+                            <!-- Activity Item 3 -->
+                            <div
+                                class="flex items-center justify-between p-3 rounded-xl hover:bg-gray-50 transition duration-150 cursor-pointer border-b border-gray-50 last:border-b-0">
+                                <div class="flex items-center space-x-4">
+                                    <div
+                                        class="w-10 h-10 bg-icon-purple rounded-lg flex items-center justify-center text-xl">
+                                        ⬆️</div>
+                                    <div>
+                                        <h4 class="font-semibold text-gray-800">Prescription Uploaded</h4>
+                                        <p class="text-xs text-gray-500">3 days ago</p>
+                                    </div>
+                                </div>
+                                <span class="text-gray-400 text-xs">View</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Small Health Records Card -->
+                    <div
+                        class="bg-white p-6 rounded-2xl shadow-lg border border-gray-100 flex flex-col justify-between">
+                        <div>
+                            <div
+                                class="w-12 h-12 bg-icon-purple rounded-xl flex items-center justify-center text-2xl mb-3 shadow-inner">
+                                📁</div>
+                            <h3 class="text-xl font-bold text-gray-700 mb-2">Health Records</h3>
+                            <p class="text-sm text-gray-500 mb-4">12 documents and 4 consultation notes available.</p>
+                        </div>
+                        <button
+                            class="w-full py-3 bg-blue-50 text-blue-600 font-semibold rounded-xl hover:bg-blue-100 transition duration-300">
+                            View Full History
+                        </button>
+                    </div>
+                </section>
+            </div>
+
+            <!-- ======================= AI CHAT INTERFACE VIEW (Initially Hidden) ======================= -->
+            <div id="chat-view"
+                class="hidden h-[85vh] flex flex-col bg-white rounded-2xl shadow-2xl border border-gray-100">
+
+                <!-- Chat Header -->
+                <div class="p-4 sm:p-6 border-b border-gray-100 flex items-center justify-between">
+                    <h3 class="text-xl font-bold text-blue-600">AI Consult: Symptom Analysis</h3>
+                    <button class="text-gray-500 hover:text-red-500 transition"
+                        onclick="showView('dashboard', document.getElementById('nav-home'))">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M6 18L18 6M6 6l12 12"></path>
+                        </svg>
+                    </button>
+                </div>
+
+                <!-- Chat Messages Area -->
+                <div id="chat-messages" class="flex-grow overflow-y-auto p-4 sm:p-6 space-y-4">
+                    <!-- AI Welcome Message -->
+                    <div class="flex justify-start">
+                        <div class="max-w-3xl bg-soft-blue text-gray-800 p-4 rounded-t-xl rounded-br-xl shadow-md">
+                            <p class="font-medium text-blue-800 mb-2">MediAssist AI (v2.0)</p>
+                            <p class="text-sm">Hello! Please describe your symptoms in detail, or upload any relevant
+                                reports. I am here to provide initial, non-diagnostic guidance.</p>
+                            <div class="mt-2 text-xs text-blue-500 bg-blue-100 p-1 rounded-lg">
+                                <span class="font-semibold">Disclaimer:</span> I am an AI and cannot replace a doctor.
+                                Always consult a licensed medical professional for diagnosis or treatment.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- User Message (Simulated previous message) -->
+                    <div class="flex justify-end">
+                        <div class="max-w-3xl bg-blue-600 text-white p-4 rounded-t-xl rounded-bl-xl shadow-md">
+                            <p class="text-sm">I have had a mild headache and persistent dry cough for the last 48
+                                hours. I feel a bit fatigued.</p>
+                        </div>
+                    </div>
+
+                    <!-- AI Response (Simulated current response) -->
+                    <div class="flex justify-start">
+                        <div id="ai-response-bubble"
+                            class="max-w-3xl bg-soft-blue text-gray-800 p-4 rounded-t-xl rounded-br-xl shadow-md">
+                            <p class="font-medium text-blue-800 mb-2">MediAssist AI (v2.0)</p>
+                            <p id="ai-response-text" class="text-sm"></p>
+                            <!-- Typing Indicator -->
+                            <div id="typing-indicator" class="flex space-x-1 mt-2">
+                                <span class="dot w-2 h-2 bg-blue-600 rounded-full"></span>
+                                <span class="dot w-2 h-2 bg-blue-600 rounded-full"></span>
+                                <span class="dot w-2 h-2 bg-blue-600 rounded-full"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Chat Input Area -->
+                <div class="p-4 sm:p-6 border-t border-gray-100 bg-gray-50 rounded-b-2xl">
+                    <div class="flex items-center space-x-3">
+                        <input type="text" placeholder="Type your next question or concern..."
+                            class="flex-grow py-3 px-4 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 transition" />
+
+                        <!-- Upload Button -->
+                        <!-- AI Agent Toggle (Compact Practo Style) -->
+                        <label
+                            class="flex items-center cursor-pointer space-x-2 bg-white px-3 py-2 border border-gray-200 rounded-xl shadow-sm hover:bg-gray-100 transition">
+                            <span class="text-xs font-medium text-gray-600">AI Agent</span>
+
+                            <div class="relative">
+                                <input type="checkbox" id="agentToggle" class="sr-only peer">
+
+                                <div class="w-9 h-5 bg-gray-300 rounded-full peer-checked:bg-blue-500 transition-all">
+                                </div>
+
+                                <div class="absolute left-0.5 top-0.5 w-4 h-4 bg-white rounded-full shadow-sm 
+                    peer-checked:translate-x-4 transition-all"></div>
+                            </div>
+                        </label>
+
+
+                        <!-- Send Button -->
+                        <button id="sendBtn"
+                            class="p-3 bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition duration-300 shadow-md">
+                            <svg class="w-6 h-6 transform rotate-90" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ======================= AI REPORT ANALYZER INTERFACE VIEW (Initially Hidden) ======================= -->
+            <div id="report-analyzer-view" class="view">
+
+                <!-- Header with report-themed gradient -->
+                <header class="text-center py-8 mb-8 rounded-2xl text-white shadow-lg 
+                                bg-gradient-to-r from-green-600 to-teal-600 card">
+                    <h1 class="text-4xl font-extrabold tracking-tight">
+                        <span class="inline-block align-middle mr-2">📄</span> Report Analyzer
+                    </h1>
+                    <p class="mt-2 text-lg opacity-90 font-light">
+                        Upload a report (image/PDF) or enter text to get instant, verified analysis.
+                    </p>
+                </header>
+            
+                <!-- Step 1: Input and Upload -->
+                <div class="bg-white p-6 md:p-10 rounded-2xl card mb-8 border border-gray-100">
+                    <h2 class="text-2xl font-bold mb-8 text-gray-800 flex items-center">
+                        <span class="bg-green-500 text-white rounded-full w-8 h-8 flex items-center justify-center text-sm mr-3">1</span>
+                        Upload & Describe
+                    </h2>
+            
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            
+                        <!-- Upload Section -->
+                        <div class="md:col-span-1 space-y-4">
+                            <label for="reportUpload" class="block text-sm font-semibold text-gray-700">Report File</label>
+            
+                            <label for="reportUpload" id="uploadReportArea" class="upload-area flex flex-col items-center justify-center border-2 border-green-300 border-dashed rounded-xl p-4 text-center text-gray-500 hover:text-green-600 hover:border-green-400 transition-all duration-300">
+                                <svg class="w-8 h-8 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+                                <p class="text-sm font-medium">Click or Drag & Drop</p>
+                                <p class="text-xs">PDF, PNG, JPG, up to 10MB</p>
+                                <input type="file" id="reportUpload" accept=".pdf,image/*" class="file-upload-input" />
+                            </label>
+            
+                            <!-- Preview Section -->
+                            <div id="reportPreviewContainer" class="mt-4 hidden p-1 border border-gray-200 rounded-xl bg-gray-50 text-center">
+                                <p class="text-gray-500 italic text-sm">Preview will appear here after upload.</p>
+                            </div>
+                            <p id="reportError" class="text-sm text-red-500 hidden mt-1"></p>
+                        </div>
+            
+                        <!-- Text/Query Input Section -->
+                        <div class="md:col-span-2 space-y-6">
+                            <div>
+                                <label for="reportText" class="block text-sm font-semibold text-gray-700 mb-2">Report Text or Context</label>
+                                <textarea id="reportText" placeholder="Paste text from report or describe the report context" rows="5" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-green-500 focus:border-green-500 resize-none transition-colors shadow-sm"></textarea>
+                            </div>
+            
+                            <div>
+                                <label for="reportQuery" class="block text-sm font-semibold text-gray-700 mb-2">Custom Query or Analysis Focus (Optional)</label>
+                                <textarea id="reportQuery" placeholder="e.g., 'Highlight abnormal lab values', 'Explain MRI results', 'Suggest next steps'" rows="4" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-green-500 focus:border-green-500 resize-none transition-colors shadow-sm"></textarea>
+                            </div>
+            
+                            <!-- Analyze Button -->
+                            <button id="analyzeReportButton" class="gradient-button w-full py-3 px-6 text-white font-extrabold rounded-xl shadow-lg focus:outline-none focus:ring-4 focus:ring-green-300 disabled:opacity-50 disabled:shadow-none flex items-center justify-center text-lg" disabled>
+                                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"></path></svg>
+                                RUN REPORT ANALYSIS
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            
+                <!-- Step 2: Analysis Output -->
+                <div class="bg-white p-6 md:p-10 rounded-2xl card border border-gray-100">
+                    <h2 class="text-2xl font-bold mb-8 text-gray-800 flex items-center">
+                        <span class="bg-teal-500 text-white rounded-full w-8 h-8 flex items-center justify-center text-sm mr-3">2</span>
+                        Analysis Results
+                    </h2>
+            
+                    <!-- Loading Spinner -->
+                    <div id="reportLoadingIndicator" class="hidden text-center py-12">
+                        <div class="loading-spinner w-12 h-12 border-4 border-gray-200 rounded-full inline-block"></div>
+                        <p class="mt-4 text-green-600 font-bold text-lg">Processing report...</p>
+                        <p class="text-sm text-gray-500">This may take a moment. Ensure you consult a professional for interpretation.</p>
+                    </div>
+            
+                    <!-- Result Display -->
+                    <div id="reportResultsContainer" class="space-y-6">
+                        <div id="reportAnalysisText" class="text-gray-700 leading-relaxed min-h-[50px] bg-gray-50 p-6 rounded-xl border border-gray-200">
+                            <p class="text-gray-500 italic text-lg font-medium">Your detailed report analysis will appear here after clicking "Run Report Analysis".</p>
+                        </div>
+            
+                        <!-- Citations/Sources -->
+                        <div id="reportSourcesContainer" class="border-t pt-6 mt-6 hidden">
+                            <h3 class="text-lg font-bold text-gray-800 mb-3 flex items-center">
+                                <svg class="w-5 h-5 mr-2 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.836a4 4 0 00-.562-.562l-4-4a4 4 0 00-5.656 0l1.102 1.102"></path></svg>
+                                Verified Sources
+                            </h3>
+                            <ul id="reportSourceList" class="text-sm text-gray-600 space-y-2 pl-5 list-disc"></ul>
+                        </div>
+            
+                        <!-- Error Message -->
+                        <div id="reportErrorContainer" class="hidden bg-red-50 border border-red-300 text-red-700 p-4 rounded-xl">
+                            <p class="font-bold mb-1 flex items-center"><svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.503-1.657 1.732-3l-6.928-12c-.771-1.343-2.693-1.343-3.464 0l-6.928 12c-.771 1.343.192 3 1.732 3z"></path></svg> Analysis Error:</p>
+                            <p id="reportErrorMessage"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ======================= AI PILL ANALYZER INTERFACE VIEW (Initially Hidden) ======================= -->
+            <div id="pill-info-view" class="view">
+                
+                <!-- Header with pill-themed gradient -->
+                <header class="text-center py-8 mb-8 rounded-2xl text-white shadow-lg 
+                                bg-gradient-to-r from-indigo-600 to-purple-600 card">
+                    <h1 class="text-4xl font-extrabold tracking-tight">
+                        <span class="inline-block align-middle mr-2">💊</span> Drug Identifier
+                    </h1>
+                    <p class="mt-2 text-lg opacity-90 font-light">
+                        Upload an image and provide the name for instant, verified analysis.
+                    </p>
+                </header>
+
+                <!-- Step 1: Input and Upload -->
+                <div class="bg-white p-6 md:p-10 rounded-2xl card mb-8 border border-gray-100">
+                    <h2 class="text-2xl font-bold mb-8 text-gray-800 flex items-center">
+                        <span class="bg-indigo-500 text-white rounded-full w-8 h-8 flex items-center justify-center text-sm mr-3">1</span>
+                        Identify & Query
+                    </h2>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        
+                        <!-- Image Upload/Preview (Larger area, more focus) -->
+                        <div class="md:col-span-1 space-y-4">
+                            <label for="imageUpload" class="block text-sm font-semibold text-gray-700">Pill Image (Front/Back)</label>
+                            
+                            <label for="imageUpload" id="uploadArea" class="upload-area flex flex-col items-center justify-center border-2 border-indigo-300 border-dashed rounded-xl p-4 text-center text-gray-500 hover:text-indigo-600 hover:border-indigo-400 transition-all duration-300">
+                                <svg class="w-8 h-8 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                                <p class="text-sm font-medium">Click or Drag & Drop Photo</p>
+                                <p class="text-xs">PNG, JPG, up to 5MB</p>
+                                <input type="file" id="imageUpload" accept="image/*" class="file-upload-input" />
+                            </label>
+
+                            <!-- Image Preview -->
+                            <div id="imagePreviewContainer" class="mt-4 hidden p-1 border border-gray-200 rounded-xl bg-gray-50 text-center">
+                                <img id="imagePreview" class="max-w-full h-auto max-h-48 mx-auto rounded-lg shadow-md" alt="Image Preview" onerror="this.onerror=null; this.src='https://placehold.co/200x200/e0e0e0/555?text=Image+Error';">
+                            </div>
+                            <p id="imageError" class="text-sm text-red-500 hidden mt-1"></p>
+                        </div>
+
+                        <!-- Text Input Section -->
+                        <div class="md:col-span-2 space-y-6">
+                            <div>
+                                <label for="drugName" class="block text-sm font-semibold text-gray-700 mb-2">Drug Name or Description</label>
+                                <input type="text" id="drugName" placeholder="e.g., White oblong pill with '50' imprint, or 'Ibuprofen'" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500 transition-colors shadow-sm" />
+                            </div>
+
+                            <div>
+                                <label for="systemInstruction" class="block text-sm font-semibold text-gray-700 mb-2">Custom Analysis Focus (Optional)</label>
+                                <textarea id="systemInstruction" placeholder="e.g., 'What are the warnings for children?', 'Only provide common side effects and dosage.', 'Identify the manufacturer.'" rows="5" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500 resize-none transition-colors shadow-sm"></textarea>
+                            </div>
+
+                            <!-- Analyze Button -->
+                            <button id="analyzeButton" class="gradient-button w-full py-3 px-6 text-white font-extrabold rounded-xl shadow-lg focus:outline-none focus:ring-4 focus:ring-indigo-300 disabled:opacity-50 disabled:shadow-none flex items-center justify-center text-lg" disabled>
+                                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"></path></svg>
+                                RUN DRUG ANALYSIS
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 2: Analysis Output -->
+                <div class="bg-white p-6 md:p-10 rounded-2xl card border border-gray-100">
+                    <h2 class="text-2xl font-bold mb-8 text-gray-800 flex items-center">
+                        <span class="bg-green-500 text-white rounded-full w-8 h-8 flex items-center justify-center text-sm mr-3">2</span>
+                        Analysis Results
+                    </h2>
+
+                    <!-- Loading Spinner -->
+                    <div id="loadingIndicator" class="hidden text-center py-12">
+                        <div class="loading-spinner w-12 h-12 border-4 border-gray-200 rounded-full inline-block"></div>
+                        <p class="mt-4 text-indigo-600 font-bold text-lg">Processing image and retrieving medical data...</p>
+                        <p class="text-sm text-gray-500">This may take a moment. Please ensure you consult a medical professional.</p>
+                    </div>
+
+                    <!-- Result Display -->
+                    <div id="resultsContainer" class="space-y-6">
+                        <div id="analysisText" class="text-gray-700 leading-relaxed min-h-[50px] bg-gray-50 p-6 rounded-xl border border-gray-200">
+                            <p class="text-gray-500 italic text-lg font-medium">Your detailed analysis will appear here after clicking "Run Drug Analysis".</p>
+                        </div>
+
+                        <!-- Citations/Sources -->
+                        <div id="sourcesContainer" class="border-t pt-6 mt-6 hidden">
+                            <h3 class="text-lg font-bold text-gray-800 mb-3 flex items-center">
+                                <svg class="w-5 h-5 mr-2 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.836a4 4 0 00-.562-.562l-4-4a4 4 0 00-5.656 0l1.102 1.102"></path></svg>
+                                Verified Sources
+                            </h3>
+                            <ul id="sourceList" class="text-sm text-gray-600 space-y-2 pl-5 list-disc"></ul>
+                        </div>
+
+                        <!-- Error Message -->
+                        <div id="errorContainer" class="hidden bg-red-50 border border-red-300 text-red-700 p-4 rounded-xl">
+                            <p class="font-bold mb-1 flex items-center"><svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.503-1.657 1.732-3l-6.928-12c-.771-1.343-2.693-1.343-3.464 0l-6.928 12c-.771 1.343.192 3 1.732 3z"></path></svg> Analysis Error:</p>
+                            <p id="errorMessage"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </main>
+    </div>
+        <script src="/static/js/script.js"></script>
+
+</body>
+
+</html>

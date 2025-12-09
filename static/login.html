@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MediAI - Create Account</title>
+    <link rel="stylesheet" href="/static/css/login.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <div class="register-panel">
+
+            <img class="img1" src="static/image.png" alt="">
+
+            <form class="register-form">
+                <h2>Login Your Account</h2>
+                <p class="subtitle">Secure access to AI medical guidance.</p>
+
+                <div class="input-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" placeholder="janedoe@example.com" required>
+                </div>
+
+                <div class="input-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" value="" placeholder="••••••••••" required>
+                </div>
+
+                <button type="submit" class="sign-up-btn">Sign Up</button>
+               
+            </form>
+
+            <p class="login-link">
+                Dont have a account?
+                <a href="#" onclick="window.location.replace('/register')">Sign Up</a>
+            </p>
+            
+        </div>
+
+        <div class="info-panel">
+            <div class="info-content-wrapper">
+                <div class="info-content">
+                    <h1>Your AI Doctor, <br>Anytime, Anywhere.</h1>
+
+                    <div class="testimonial-card">
+                        <div class="quote-text">
+                            <i class="fas fa-quote-left"></i>
+                            "MediAI provides peace to people with instant reliable health insights. A true lifetiver!"
+                        </div>
+                        <p class="testimonial-author">
+                            Dr. Emily Chen, Family Physician <br>
+                            Early Adopter
+                        </p>
+                        <div class="carousel-nav">
+                            <button class="nav-btn prev-btn"><i class="fas fa-arrow-left"></i></button>
+                            <button class="nav-btn next-btn"><i class="fas fa-arrow-right"></i></button>
+                        </div>
+                    </div>
+
+                    <div class="cta-banner">
+                        <h3>Get instant AI riob medical support today!</h3>
+                        <p>Be one of the first founders to experience the AI health assistant in seconds.</p>
+                        <div class="avatars">
+                            <span class="avatar a1"></span>
+                            <span class="avatar a2"></span>
+                            <span class="avatar a3"></span>
+                            <span class="avatar a4"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>  
+    </div>
+
+    <script src="/static/js/login.js"></script>
+</body>
+</html>

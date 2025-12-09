@@ -1,0 +1,146 @@
+        /* Custom Font Family */
+        :root {
+            --primary-blue: #2E7DDC;
+            --soft-blue: #EBF5FF;
+            --calm-green: #4CAF50;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #F8FAFC; /* Lighter background for professionalism */
+            color: #1E293B;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f1f5f9; /* Soft light blue/gray background */
+        }
+        .img1{
+            /* background-color: red; */
+            width: 100%;
+            padding-bottom: 10px;
+            height: 100%;
+        }
+        
+        .app-container {
+            min-height: 100vh;
+        }
+        .card {
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+        .loading-spinner {
+            border-top-color: #4f46e5; /* Indigo */
+            animation: spin 1s ease-in-out infinite;
+        }
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        .active-link {
+            background-color: #eef2ff; /* Very light indigo background for active link */
+            color: #4f46e5; /* Indigo text */
+            font-weight: 600;
+            border-right: 4px solid #4f46e5;
+        }
+
+        /* --- FIX: Custom File Input Styling --- */
+        .upload-area {
+            position: relative; /* Crucial for positioning the absolute input inside */
+            min-height: 150px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        .upload-area:hover {
+            background-color: #f7f7f7;
+        }
+        
+        /* This makes the native file input 100% transparent and cover the entire label */
+        .file-upload-input {
+            opacity: 0; 
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            cursor: pointer;
+            /* Important for accessibility and ensuring the file input truly covers the area */
+        }
+        /* --- END FIX --- */
+
+        .gradient-button {
+            background: linear-gradient(to right, #4f46e5, #6366f1);
+            transition: background 0.3s ease, transform 0.1s ease;
+        }
+        .gradient-button:hover:not(:disabled) {
+            background: linear-gradient(to right, #6366f1, #4f46e5);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 10px rgba(79, 70, 229, 0.4);
+        }
+        .gradient-button:disabled {
+            background: #cbd5e1;
+        }
+
+        /* Custom Scrollbar (subtle) */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+        
+        /* Utility for Active Menu Link */
+        .menu-link.active {
+            background-color: var(--soft-blue) !important;
+            color: var(--primary-blue) !important;
+            font-weight: 600;
+            border-left: 4px solid var(--primary-blue);
+            padding-left: 1rem !important;
+        }
+
+        /* Transition for layout changes */
+        .sidebar {
+            transition: transform 0.3s ease-in-out, width 0.3s ease-in-out;
+        }
+
+        /* Mobile sidebar hidden state */
+        .sidebar-hidden {
+            transform: translateX(-100%);
+        }
+
+        /* Custom Card Gradient & Shadow for Trust */
+        .action-card {
+            background: linear-gradient(145deg, #ffffff, #f0f8ff);
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+        .action-card:hover {
+            box-shadow: 0 10px 30px rgba(46, 125, 220, 0.2);
+            transform: translateY(-5px);
+            border-color: var(--primary-blue);
+        }
+
+        /* Typing indicator dots */
+        @keyframes blink {
+            0% { opacity: 0.2; }
+            20% { opacity: 1; }
+            100% { opacity: 0.2; }
+        }
+        .dot {
+            animation-name: blink;
+            animation-duration: 1.4s;
+            animation-iteration-count: infinite;
+            animation-fill-mode: both;
+        }
+        .dot:nth-child(2) { animation-delay: 0.2s; }
+        .dot:nth-child(3) { animation-delay: 0.4s; }
+
+        /* Custom colors based on the theme */
+        .bg-icon-blue { background-color: #EBF5FF; color: #2E7DDC; }
+        .bg-icon-green { background-color: #E8F5E9; color: #4CAF50; }
+        .bg-icon-orange { background-color: #FFF3E0; color: #FF9800; }
+        .bg-icon-purple { background-color: #F3E5F5; color: #9C27B0; }
+
+     
