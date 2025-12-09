@@ -6,3 +6,5 @@ pymongo
 dnspython
 google-genai
 chromadb
+python-multipart
+
