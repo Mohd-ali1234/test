@@ -55,8 +55,8 @@ if (form) {
         //  API CALL
         // ===============================
         const endpoint = isRegister
-            ? "https://test-7-xytl.onrender.com/auth/register"
-            : "https://test-7-xytl.onrender.com/auth/login";
+            ? "https://test-2-4mru.onrender.com/auth/register"
+            : "https://test-2-4mru.onrender.com/auth/login";
 
         const formData = new FormData();
         formData.append("email", email);
@@ -95,4 +95,5 @@ if (form) {
         
     });
 }
+
 
