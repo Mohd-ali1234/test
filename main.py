@@ -16,6 +16,7 @@ from database import users_collection
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import FileResponse
 import os
+from dotenv import load_dotenv
 
 # Import DB from database.py
 from database import users_collection, health_records_collection, chat_history_collection
@@ -38,8 +39,9 @@ class UserMessage(BaseModel):
     user_message: str
     mode: str
 
+load_dotenv()  # loads .env file
 
-API_KEY = "AIzaSyApVhLJorWGOvTO-vj6DKVYGouUk6fEchg"
+API_KEY = os.getenv("GEMINI_API_KEY")
 client = genai.Client(api_key=API_KEY)
 
 chroma_client = chromadb.PersistentClient(path="./chroma_memory")
