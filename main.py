@@ -26,16 +26,6 @@ scheduler = BackgroundScheduler()
 # --------------------------------------------------
 # ENV SETUP
 # --------------------------------------------------
-load_dotenv()
-
-GROQ_API_KEY = os.getenv("GROQ_API_KEY")
-if not GROQ_API_KEY:
-    raise RuntimeError("GROQ_API_KEY not set")
-
-# Initialize Groq Client
-groq_client = Groq(api_key=GROQ_API_KEY)
-# We'll use Llama 3.3 70B for high intelligence or 8B for speed
-MODEL_ID = "llama-3.3-70b-versatile" 
 
 # --------------------------------------------------
 # FASTAPI APP
@@ -430,9 +420,3 @@ def close_day(user_id: str):
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
-# --------------------------------------------------
-# ENTRYPOINT
-# --------------------------------------------------
-if __name__ == "__main__":
-    import uvicorn
-    uvicorn.run("main:app", host="0.0.0.0", port=8000, reload=True)
