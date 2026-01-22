@@ -1,8 +1,0 @@
-fastapi
-uvicorn
-pymongo
-python-dotenv
-apscheduler
-pytz
-chromadb
-groq
